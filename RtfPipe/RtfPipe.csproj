@@ -17,9 +17,14 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>RtfPipeStrongNameKey.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
 
@@ -42,4 +47,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net35|AnyCPU'">
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net35|x64'">
+    <DocumentationFile />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="7.24.0" />
+  </ItemGroup>
 </Project>

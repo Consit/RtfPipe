@@ -1,3 +1,4 @@
+using ImageMagick;
 using RtfPipe.Model;
 using RtfPipe.Tokens;
 using System;
@@ -77,11 +78,14 @@ namespace RtfPipe
 #if NETFULL
       if (picture.Type is EmfBlip || picture.Type is WmMetafile)
       {
-        using (var source = new MemoryStream(picture.Bytes))
+        MagickFormat format = picture.Type is EmfBlip ? MagickFormat.Emf : MagickFormat.Wmf;
         using (var dest = new MemoryStream())
         {
-          var bmp = new System.Drawing.Bitmap(source);
-          bmp.Save(dest, System.Drawing.Imaging.ImageFormat.Png);
+          using (var image = new MagickImage(picture.Bytes, format))
+          {
+            image.Format = MagickFormat.Png;
+            image.Write(dest);
+          }
           return "data:image/png;base64," + Convert.ToBase64String(dest.ToArray());
         }
       }
